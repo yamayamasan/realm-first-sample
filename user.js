@@ -11,6 +11,7 @@ function User() {
       uuid: 'string',
       username: 'string',
       age: 'int',
+      role: 'string',
       created_at: 'date'
     }
   };
@@ -29,6 +30,22 @@ User.prototype.add = function(input) {
 
 User.prototype.get = function() {
   return this.realm.objects(this.schema.name);
+}
+
+User.prototype.filteredRoleUser = function() {
+  const datas = this.realm.objects(this.schema.name);
+  return datas.filtered('role == "user"');
+}
+
+User.prototype.filtered = function(filterString) {
+  const datas = this.realm.objects(this.schema.name);
+  return datas.filtered(filterString);
+}
+
+User.prototype.delete = function(object) {
+  this.realm.write(() => {
+    this.realm.delete(object);
+  });
 }
 
 module.exports = User;
