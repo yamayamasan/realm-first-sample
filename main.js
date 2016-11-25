@@ -11,6 +11,7 @@ program
   .option('-d, --delete [value]', 'delete item')
   .option('-r, --role [value]', 'role')
   .option('-f, --filtered [value]', 'filtered')
+  .option('-u, --update [value]', 'update')
   .parse(process.argv);
 
 if (program.add) {
@@ -60,6 +61,24 @@ if (program.filtered) {
   const arg = program.filtered;
   const datas = model.filtered(arg);
   console.log(datas);
+  process.exit();
+}
+
+if (program.update) {
+  const args = program.update.split(',');
+  const obj = {};
+  args.forEach((arg) => {
+    const argArr = arg.split(':');
+    const key = argArr[0].trim();
+    const val = argArr[1];
+    obj[key] = val.trim();
+  });
+  if (obj.age) {
+    obj['age'] = parseInt(obj.age);
+  }
+  const uuid = obj.uuid;
+  delete obj.uuid;
+  const datas = model.update(uuid, obj);
   process.exit();
 }
 

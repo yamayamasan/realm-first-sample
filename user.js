@@ -28,6 +28,16 @@ User.prototype.add = function(input) {
   });
 }
 
+User.prototype.update = function(uuid, inputs) {
+  const data = this.filtered(`uuid == '${uuid}'`);
+
+  this.realm.write(() => {
+    Object.keys(inputs).forEach((key) => {
+      data[0][key] = inputs[key];
+    });
+  });
+}
+
 User.prototype.get = function() {
   return this.realm.objects(this.schema.name);
 }
