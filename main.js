@@ -27,7 +27,6 @@ if (program.add) {
   obj['uuid'] = getUnixTime();
   obj['age'] = parseInt(obj.age);
   obj['created_at'] = new Date();
-  obj['role'] = "user";
   console.log(obj);
   model.add(obj);
   process.exit();
@@ -35,7 +34,7 @@ if (program.add) {
 
 if (program.get) {
   const datas = model.get();
-  console.log('datas:', datas);
+  console.log('datas:', datas.toJSON());
   process.exit();
 }
 
@@ -54,14 +53,14 @@ if (program.delete) {
 
 if (program.role) {
   const datas = model.filteredRoleUser();
-  console.log('datas:', datas);
+  console.log('datas:', datas.toJSON());
   process.exit();
 }
 
 if (program.filtered) {
   const arg = program.filtered;
   const datas = model.filtered(arg);
-  console.log('datas:', datas);
+  console.log('datas:', datas.toJSON());
   process.exit();
 }
 
